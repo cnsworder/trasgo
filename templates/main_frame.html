@@ -4,8 +4,14 @@
          {% include "head.html" %}
     </head>
     <body>
-        {% block name_content %}
-           name_show
-        {% endblock %}
+        {% include "left.html" %}
+        <div class="warp-content">
+        <div class="main">
+            {% block name_content %}
+            name_show
+            {% endblock %}
+        </div>
+        {% include "foot.html" %}
+        </div>
     </body>
 </html>

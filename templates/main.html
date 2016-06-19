@@ -1,4 +1,111 @@
 {% extends "main_frame.html" %}
-{% block name_content %}
-    {{ name }}
+{% block main_content %}
+
+<div class="container">
+    <h1>Test main page</h1>
+    <div id="testId"></div>
+    <h2>Test now</h2>
+<canvas id="myChart" width="100" height="100"></canvas>
+<script type="text/javascript">
+ //Get context with jQuery - using jQuery's .get() method.
+ var ctx = $("#myChart").get(0).getContext("2d");
+ //This will get the first returned node in the jQuery collection.
+ var myNewChart = new Chart(ctx);
+ var data = {
+     labels: [
+         "Red",
+         "Blue",
+         "Yellow"
+     ],
+     datasets: [
+         {
+             data: [300, 50, 100],
+             backgroundColor: [
+                 "#FF6384",
+                 "#36A2EB",
+                 "#FFCE56"
+             ],
+             hoverBackgroundColor: [
+                 "#FF6384",
+                 "#36A2EB",
+                 "#FFCE56"
+             ]
+         }]
+ };
+ var myDoughnutChart = new Chart(ctx, {
+     type: 'doughnut',
+     data: data,
+     options: {
+         responsive: false
+     }
+ });
+
+ $("#testId").append("<a>Test  all</a>");
+</script>
+    <div id="last-test" class="row demo-tiles">
+        <div class="col-xs-3">
+            <div class="tile">
+                <img src="/static/img/icons/svg/compas.svg" alt="Compas" class="tile-image big-illustration">
+                <h3 class="tile-title">Web Oriented</h3>
+                <p>100% convertable to HTML/CSS layout.</p>
+                <a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div class="tile">
+                <img src="/static/img/icons/svg/loop.svg" alt="Infinity-Loop" class="tile-image">
+                <h3 class="tile-title">Easy to Customize</h3>
+                <p>Vector-based shapes and minimum of layer styles.</p>
+                <a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div class="tile">
+                <img src="/static/img/icons/svg/pencils.svg" alt="Pensils" class="tile-image">
+                <h3 class="tile-title">Color Swatches</h3>
+                <p>Easy to add or change elements. </p>
+                <a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div class="tile tile-hot">
+                <img src="/static/img/icons/svg/ribbon.svg" alt="ribbon" class="tile-hot-ribbon">
+                <img src="/static/img/icons/svg/chat.svg" alt="Chat" class="tile-image">
+                <h3 class="tile-title">Free for Share</h3>
+                <p>Your likes, shares and comments helps us.</p>
+                <a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>
+            </div>
+
+        </div>
+    </div>
+<form action="/" method="POST">
+    <div class="row">
+        <div class="col-sm-6">
+            <span>镜像名称<input type="text" class="from-control"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <textarea class="note-textarea"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <input type="submit" class="btn" value="Input"></input>
+        </div>
+</form>
+    </div>
+
+    <script type="text/javascript">
+     $("#last-test").append('<div class="col-xs-3"><div class="tile">\
+                <img src="/static/img/icons/svg/pencils.svg" alt="Pensils" class="tile-image">\
+                <h3 class="tile-title">Color Swatches</h3>\
+                <p>Easy to add or change elements. </p>\
+                <a class="btn btn-primary btn-large btn-block" href="http://designmodo.com/flat">Get Pro</a>\
+                            </div>\
+         </div>');
+    </script>
 {% endblock %}

@@ -1,0 +1,7 @@
+{% extends "main_frame.html" %}
+{% block name_content %}
+<form method="POST" action="/upfile" enctype="multipart/form-data">
+    <input type="file" name="file"></input>
+    <input type="submit" value="导入"></input>
+</form>
+{% endblock %}
