@@ -1,7 +1,9 @@
-{% extends "main_frame.html" %}
-{% block name_content %}
-<form method="POST" action="/upfile" enctype="multipart/form-data">
-    <input type="file" name="file"></input>
-    <input type="submit" value="导入"></input>
+{% extends "main_content.html" %}
+{% block main_content %}
+<h3>导入仓储文件</h3>
+
+<form method="POST" action="/upfile" enctype="multipart/form-data" style="margin-top:100px">
+    <input type="file" name="file" style="margin-bottom:100px"></input>
+    <input type="submit" value="导入" class="btn btn-block btn-lg btn-inverse"></input>
 </form>
 {% endblock %}

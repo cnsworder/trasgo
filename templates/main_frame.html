@@ -5,13 +5,18 @@
     </head>
     <body>
         {% include "left.html" %}
+        
         <div class="warp-content">
-        <div class="main">
-            {% block name_content %}
-            name_show
+            {% block main_content %}
+            <script type="text/javascript">
+             $("#main").addClass("active");
+            </script>
+            {% include "main_content.html" %}
+            {% endblock %}
+            {% block footer %}
+            {% include "foot.html" %}
             {% endblock %}
         </div>
-        {% include "foot.html" %}
-        </div>
+
     </body>
 </html>

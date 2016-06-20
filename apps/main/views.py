@@ -15,13 +15,13 @@ import xlrd
 @main_app.route("/main")
 def main():
     name = "my"
-    return render_template("main.html", name=name)
+    return render_template("main_frame.html", name=name)
 
 
 # 导入xls
 @main_app.route('/import_xls')
 def import_xls():
-    return render_template("import.html")
+    return render_template("import_frame.html")
 
 
 # 接受文件检测
@@ -55,4 +55,9 @@ def upload_file():
 @main_app.route("/xls_value/<filename>")
 def xls_value(filename):
     file_path = os.path.join(config.UPLOAD_FOLDER, filename)
-    return render_template("xls_value.html", xls_value=resolve_xls(file_path))
+    return render_template("xls_frame.html", xls_value=resolve_xls(file_path))
+
+
+@main_app.route("/importdb", methods=["POST"])
+def import_db():
+    return "import"

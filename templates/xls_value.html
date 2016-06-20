@@ -1,6 +1,19 @@
-{% extends "main_frame.html" %}
-{% block name_content %}
+{% extends "main_content.html" %}
+{% block main_content %}
+<h3>导入信息确认<small>请仔细确认</small></h3>
 {% for value in xls_value %}
     <div>{{ value }}</div>
 {% endfor %}
+    <script type="text/javascript">
+     $("#import").addClass("active");
+    </script>
+
+    <form id="importdb" method="POST" action="/importdb">
+        <input id="importdb-btn" type="button" class="btn btn-success" value="确认"></input>
+    </form>
+    <script type="text/javascript">
+     $("#importdb-btn").click(function() {
+         $("#importdb").submit();
+         });
+    </script>
 {% endblock %}

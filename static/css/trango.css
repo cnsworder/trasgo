@@ -1,8 +1,32 @@
-ul {
-    list-style-type: none;
+a {
+    color: #ffb100;
 }
 
+a:hover, a:focus {
+    color: #ffb100;
+}
 
+/*
+ul {
+    list-style-type: none;
+    left:0px;
+}
+
+li {
+    display: block;
+    //border-bottom: 1px solid #bcbcbc;
+    border-left: 10px;
+    margin-top: 10px;
+}
+
+li:hover {
+    background-color: #ffffff;
+}
+
+.nav a {
+    margin-left: 5px;
+}
+*/
 .left {
     background-color: #2d2c2c;
     color: #ffb100;
@@ -13,40 +37,55 @@ ul {
     //margin-right: 300px;
 }
 
-.warp-content {
+.controller {
+    background-color: #202020;
+    color: #ffb111;
+    float: left;
+    width: 5px;
+    height: 100%;
+    position: fixed;
     margin-left: 200px;
+    padding-top: 20%;
+    overflow: hide;
+}
+
+.warp-content {
+    margin-left: 205px;
     margin-bottom: 30px;
+    overflow: auto;
 }
 
 .main {
     background-color: #ffb100;
     width: 100%;
+    padding-left: 10px;
     //height: 3000px;
 }
 
 .foot {
-    background-color: #ffffff;
+    //background-color: #ffffff;
     //margin-top: -1em;
     position: fixed;
     width: 100%;
     bottom: 0px;
     height: 30px;
     text-align: center;
-    border-top-color: #000066;
-    border-top-width: 1px;
-    border-top-style: solid;
+    //border-top-color: #000066;
+    //border-top-width: 1px;
+    //border-top-style: solid;
 }
 
 .logo {
     margin-top: 50px;
     margin-bottom: 50px;
-    margin-left: 50px;
-    center: true;
+    //margin-left: 50px;
+    text-align: center;
 }
 
 .user-info {
     position: fixed;
-    bottom: 0px;
+    bottom: 2px;
+    left: 20px;
 }
 
 .user-img {
