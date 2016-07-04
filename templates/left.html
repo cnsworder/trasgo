@@ -1,19 +1,19 @@
 <div class="left">
     <div class="logo">
         <img src="/static/img/icons/svg/gift-box.svg" alt="Gift-Box" data-pin-nopin="true">
-        <div>同城快递</div>
+        <div>宏毅物业</div>
     </div>
     <div class="nav">
         <ul class="nav nav-pills nav-stacked">
             <li id="main"><a href="/main">首页</a></li>
             <li id="import"><a href="/import_xls">仓储数据导入</a></li>
-            <li id="order-assign"><a>订单分派</a></li>
-            <li id="order-query"><a>订单查询</a></li>
+            <li id="order-post"><a href="/order_post">订单分派</a></li>
+            <li id="order-query"><a href="/order_query"">订单查询</a></li>
         </ul>
     </div>
     <div class="user-info">
-        <img class="user-img" src=""></img>
-        <div id="user-name">{{ user }} user</div>
+        <img class="user-img" src="{{usr_photo}}"></img>
+        <div id="user-name">{{ user_name }}</div>
     </div>
 </div>
 <div class="controller">
