@@ -1,13 +1,92 @@
 {% extends "main_content.html" %}
 {% block main_content %}
-<h3>订单列表</h3>
-<div class="order-frame">
-    <div class="order-item">
-        <div>订单:</div>
-        <div>订货人</div>
-        <div>
-            <input type="button" class="btn btn-success" value="分配"></input>
+<br/>
+<div class="row">
+    <div class="col-lg-6">
+        <h4>订单列表</h4>
+    </div>
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input class="form-control" name="" type="text" value=""/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    Go!
+                </button>
+            </span>
         </div>
+    </div>
+</div>
+<br/>
+{% for order in orders %}
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <div class="panel-title">
+            {% if not order.courise %}
+            <div class="label label-danger"> new </div>
+            {% endif %}
+            {{ order.ID }} {{order.clienter}}
+            <span class="badge">{{order.print_status}}</span>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+            <div class="row list-group-item">
+                <div class="col-xs-3">客户单号:{{order.tick}}</div>
+                <div class="col-xs-3">下单时间:{{order.time}}</div>
+            </div>
+            <div class="row list-group-item">
+                <div class="col-xs-3">收货人:{{order.user}}</div>
+                <div class="col-xs-3">电话: {{order.tel}}</div>
+                <div class="col-xs-3">总量: {{order.count}}</div>
+            </div>
+            <div class="row list-group-item">
+                <div class="col-xs-12">
+                    <span>收货地址:</span>
+                    <span>{{order.addr}}</span>
+                </div>
+            </div>
+            <div class="row list-group-item">
+                <div class="col-xs-12">
+                    <span>说明:</span>
+                    <span>{{order.descriptd}}</span>
+                </div>
+            </div>
+            <br/>
+            {% if order.courise %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <sapn class="input-group-addon">派送员</sapn>
+                        <input type="text" class="form-control" value="{{order.courise}}" readonly/>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <sapn class="input-group-addon">派送员</sapn>
+                        <input type="text" id="{{order.ID}}_post" class="form-control">
+                    </div>
+                </div>
+                <span class="col-md-1">
+                    <input type="button" class="btn btn-success" data-id="{{order.ID}}" value="分配" onclick=javascript:post_order("{{order.ID}}")></input>
+                </span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<br/>
+{% endfor %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-4">
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a><span aria-hidden="true">上一页</span></a></li>
+                <li class="next"><a href="next"><span aria-hidden="true">下一页</span></a></li>
+            </ul>
+        </nav>
     </div>
 </div>
 <style>
@@ -21,4 +100,14 @@
      margin: 5px 5px 5px 5px;
  }
 </style>
+<script type="text/javascript">
+    function post_order(order_id) {
+        console.log($("#" + order_id + "_post").val());
+        $.post("/post_order",
+               {"order": order_id, "exp_id": $("#" + order_id + "_post").val()},
+               function(result) {
+                   console.log(result);
+        });
+    }
+</script>
 {% endblock %}

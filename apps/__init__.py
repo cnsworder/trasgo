@@ -9,8 +9,8 @@ from flask import Flask
 from apps.main import main_app
 
 
-logging.basicConfig(filename="logs/{0}.log".format(datetime.now().date()),
-                    level=logging.DEBUG)
+#logging.basicConfig(filename="logs/{0}.log".format(datetime.now().date()),
+#                    level=logging.DEBUG)
 
 
 app = Flask(__name__,

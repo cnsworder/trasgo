@@ -3,6 +3,7 @@
 
 import config
 import os
+import json
 from datetime import datetime
 
 from flask import render_template
@@ -24,7 +25,10 @@ import config
 # 默认主页
 @main_app.route("/main")
 def main():
+    if 'user' not in session:
+        return redirect(url_for("login"))
     return render_template("main_frame.html", user_name=session['user'])
+
 
 # 导入xls
 @main_app.route('/import_xls')
@@ -110,9 +114,37 @@ def search_order(search_value):
     return orders
 
 
+@main_app.route("/order_query")
+def order_query_all():
+    session = make_session()
+    orders = session.query(Order).filter(Order.status != "Finish")
+    return render_template("order_query_frame.html", orders=orders)
+
+
 @main_app.route("/order_query/<query_value>", methods=["GET"])
-def order_query(query_value):
+def order_query(query_value=None):
+
     return render_template("order_query_frame.html")
+
+
+@main_app.route("/post_order", methods=["POST"])
+def post_order():
+    courise_id = request.form["exp_id"]
+    order_id = request.form["order"]
+    if not courise_id:
+        return '{"result": false}'
+    session = make_session()
+
+    try:
+        order = session.query(Order).filter(Order.ID == order_id)[0]
+        order.courise = courise_id
+        session.add(order)
+        session.commit()
+    except Exception as e:
+        print(e.message)
+        session.rollback()
+        return '{"result": false}'
+    return '{"result": true}'
 
 
 @main_app.route("/order_post", methods=["GET"])
