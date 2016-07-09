@@ -32,7 +32,7 @@
         <div class="list-group">
             <div class="row list-group-item">
                 <div class="col-xs-3">客户单号:{{order.tick}}</div>
-                <div class="col-xs-3">下单时间:{{order.time}}</div>
+                <div class="col-xs-6">下单时间:{{order.time}}</div>
             </div>
             <div class="row list-group-item">
                 <div class="col-xs-3">收货人:{{order.user}}</div>
@@ -83,8 +83,8 @@
     <div class="col-md-6 col-md-offset-4">
         <nav>
             <ul class="pager">
-                <li class="previous"><a><span aria-hidden="true">上一页</span></a></li>
-                <li class="next"><a href="next"><span aria-hidden="true">下一页</span></a></li>
+                <li class="previous"><a href="/order_query_page/{{num - 1}}"><span aria-hidden="true">上一页</span></a></li>
+                <li class="next"><a href="/order_query_page/{{num}}"><span aria-hidden="true">下一页</span></a></li>
             </ul>
         </nav>
     </div>
@@ -107,6 +107,7 @@
                {"order": order_id, "exp_id": $("#" + order_id + "_post").val()},
                function(result) {
                    console.log(result);
+                   window.location.reload();
         });
     }
 </script>

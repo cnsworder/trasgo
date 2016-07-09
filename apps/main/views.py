@@ -114,17 +114,36 @@ def search_order(search_value):
     return orders
 
 
+PAGE_COUNT = 20
+
+
 @main_app.route("/order_query")
-def order_query_all():
+def order_post_all():
     session = make_session()
-    orders = session.query(Order).filter(Order.status != "Finish")
-    return render_template("order_query_frame.html", orders=orders)
+    orders = session.query(Order)\
+        .filter(Order.status != "Finish")\
+        .filter(Order.courise == None)\
+        .order_by(Order.time)\
+        .limit(PAGE_COUNT)
+    page_num = 2
+    return render_template("order_query_frame.html",
+                           orders=orders,
+                           num=page_num)
 
 
-@main_app.route("/order_query/<query_value>", methods=["GET"])
-def order_query(query_value=None):
-
-    return render_template("order_query_frame.html")
+@main_app.route("/order_query_page/<int:page_number>")
+def order_post_page(page_number):
+    session = make_session()
+    orders = session.query(Order)\
+        .filter(Order.status != "Finish")\
+        .filter(Order.courise == None)\
+        .order_by(Order.time)\
+        .limit(PAGE_COUNT)\
+        .offset((page_number - 1) * PAGE_COUNT)
+    page_num = page_number + 1
+    return render_template("order_query_frame.html",
+                           orders=orders,
+                           num=page_num)
 
 
 @main_app.route("/post_order", methods=["POST"])
@@ -136,9 +155,10 @@ def post_order():
     session = make_session()
 
     try:
-        order = session.query(Order).filter(Order.ID == order_id)[0]
-        order.courise = courise_id
-        session.add(order)
+        # order = session.query(Order).filter(Order.ID == order_id)[0]
+        order = Order(ID=order_id, courise=courise_id)
+        # order.courise = courise_id
+        session.merge(order)
         session.commit()
     except Exception as e:
         print(e.message)
@@ -148,7 +168,57 @@ def post_order():
 
 
 @main_app.route("/order_post", methods=["GET"])
-def order_post():
+def order_query():
     session = make_session()
     orders = session.query(Order)
-    return render_template("order_post_frame.html", orders=orders)
+    session = make_session()
+    orders = session.query(Order)\
+                    .filter(Order.status != "Finish")\
+                    .order_by(Order.time)\
+                    .limit(PAGE_COUNT)
+    page_num = 2
+    return render_template("order_post_frame.html",
+                           orders=orders,
+                           num=page_num)
+
+
+@main_app.route("/order_post_page/<int:page_number>")
+def order_query_page(page_number):
+    session = make_session()
+    orders = session.query(Order)\
+        .filter(Order.status != "Finish")\
+        .order_by(Order.time)\
+        .limit(PAGE_COUNT)\
+        .offset((page_number - 1) * PAGE_COUNT)
+    page_num = page_number + 1
+    return render_template("order_post_frame.html",
+                           orders=orders,
+                           num=page_num)
+
+
+@main_app.route("/order_post_by_condition/<int:cond_type>", methods=["GET"])
+def order_query_by_condition(cond_type=0):
+    session = make_session()
+    orders = session.query(Order)
+    session = make_session()
+    if cond_type == 0:
+        orders = session.query(Order)\
+                        .filter(Order.status == "Import")\
+                        .filter(Order.courise == None)\
+                        .order_by(Order.time)\
+                        .limit(PAGE_COUNT)
+    elif cond_type == 2:
+        orders = session.query(Order)\
+                        .filter(Order.status == "Finish")\
+                        .order_by(Order.time)\
+                        .limit(PAGE_COUNT)
+    else:
+        orders = session.query(Order)\
+                        .filter(Order.status != "Finish")\
+                        .filter(Order.courise != None)\
+                        .order_by(Order.time)\
+                        .limit(PAGE_COUNT)
+    page_num = 2
+    return render_template("order_post_frame.html",
+                           orders=orders,
+                           num=page_num)
