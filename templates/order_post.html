@@ -62,7 +62,7 @@
 function searchOrder() {
     order_id = $("#search_order_id").val();
     console.log(order_id);
-    window.location.href = "/search_order/{{order_id}}";
+    window.location.href = "/search_order/" + order_id;
     //$.get("/search_order/{{order_id}}", function(result) {
 
     //});
