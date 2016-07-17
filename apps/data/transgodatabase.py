@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import uuid
+# import uuid
 from datetime import datetime
 from apps import logging
 
