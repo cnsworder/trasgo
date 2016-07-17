@@ -7,10 +7,10 @@
     </div>
     <div class="col-lg-6">
         <div class="input-group">
-            <input class="form-control" name="" type="text" value=""/>
+            <input id="search_order_id" class="form-control" name="" type="text" value=""/>
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-                    Go!
+                <button class="btn btn-default" onclick="searchOrder()" type="button">
+                    搜素
                 </button>
             </span>
         </div>
@@ -111,5 +111,15 @@
                    window.location.reload();
         });
     }
+</script>
+<script type="text/javascript" charset="utf-8">
+function searchOrder() {
+    order_id = $("#search_order_id").val();
+    console.log(order_id);
+    window.location.href = "/search_order/" + order_id;
+    //$.get("/search_order/{{order_id}}", function(result) {
+
+    //});
+}
 </script>
 {% endblock %}
