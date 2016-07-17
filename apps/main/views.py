@@ -46,29 +46,31 @@ def import_to_db(table):
     xls_index = config.xls_index
     session = make_session()
     print(table.ncols)
-    for index in range(1, table.nrows - 1):
-        row = table.row_values(index)
-        if not row[xls_index.ID]:
-            continue
-
-        order = Order(row[xls_index.ID],
-                      row[xls_index.clienter],
-                      row[xls_index.tick],
-                      row[xls_index.user],
-                      row[xls_index.addr],
-                      row[xls_index.tel],
-                      int(row[xls_index.count]),
-                      row[xls_index.express],
-                      datetime.strptime(row[xls_index.time],
-                                        "%Y/%m/%d  %H:%M:%S"),
-                      row[xls_index.descript],
-                      row[xls_index.print_status],
-                      True if row[xls_index.cancel_status] else False)
-        session.add(order)
     try:
+        for index in range(1, table.nrows - 1):
+            row = table.row_values(index)
+            if not row[xls_index.ID]:
+                continue
+
+            order = Order(row[xls_index.ID],
+                        row[xls_index.clienter],
+                        row[xls_index.tick],
+                        row[xls_index.user],
+                        row[xls_index.addr],
+                        row[xls_index.tel],
+                        int(row[xls_index.count]),
+                        row[xls_index.express],
+                        datetime.strptime(row[xls_index.time],
+                                            "%Y/%m/%d  %H:%M:%S"),
+                        row[xls_index.descript],
+                        row[xls_index.print_status],
+                        True if row[xls_index.cancel_status] else False)
+            session.add(order)
+
         session.commit()
     except Exception as e:
         session.rollback()
+        print(e.message)
         logging.info("{0}".format(e.message))
         return False
     return True

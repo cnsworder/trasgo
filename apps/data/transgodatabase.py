@@ -75,32 +75,35 @@ class Order(Base):
 
     courise = Column(Integer, ForeignKey("courise.courise_id"))
 
-    # def __init__(self,
-    #              ID,
-    #              clienter=None,
-    #              tick=None,
-    #              user=None,
-    #              addr=None,
-    #              tel=None,
-    #              count=None,
-    #              express=None,
-    #              time=None,
-    #              descript=None,
-    #              print_status=None,
-    #              cancel_status=None):
-    #     self.ID = ID
-    #     self.clienter = clienter
-    #     self.tick = tick
-    #     self.user = user
-    #     self.addr = addr
-    #     self.tel = tel
-    #     self.count = count
-    #     self.express = express
-    #     self.status = "Import"
-    #     self.time = time
-    #     self.descript = descript
-    #     self.print_status = print_status
-    #     self.cancel_status = cancel_status
+    def __init__(self):
+        super().__init__()
+
+    def __init__(self,
+                 ID,
+                 clienter=None,
+                 tick=None,
+                 user=None,
+                 addr=None,
+                 tel=None,
+                 count=None,
+                 express=None,
+                 time=None,
+                 descript=None,
+                 print_status=None,
+                 cancel_status=None):
+        self.ID = ID
+        self.clienter = clienter
+        self.tick = tick
+        self.user = user
+        self.addr = addr
+        self.tel = tel
+        self.count = count
+        self.express = express
+        self.status = "Import"
+        self.time = time
+        self.descript = descript
+        self.print_status = print_status
+        self.cancel_status = cancel_status
 
 
 class courise(Base):
