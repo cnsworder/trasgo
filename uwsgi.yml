@@ -1,0 +1,10 @@
+uwsgi:
+    socket: /tmp/uwsgi_transgo.sock
+    chmod-socket: 666
+    processes: 5
+    master: true
+    wsgi-file: ./wsgi.py
+    virtualenv: ./env
+    gid: nginx
+    uid: nginx
+    plugin: python
