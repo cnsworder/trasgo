@@ -123,7 +123,7 @@ PAGE_COUNT = 20
 def search_order_by_id(order_id):
     session = make_session()
     orders = session.query(Order)\
-        .filter(Order.ID != order_id)\
+        .filter(Order.ID == order_id)\
         .order_by(Order.time)
     page_num = 2
     return render_template("order_query_frame.html",
