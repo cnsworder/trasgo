@@ -7,8 +7,8 @@ IS_DEBUG = True   # 是否调试
 
 SHEET_INDEX = 1
 UPLOAD_EXTENSIONS = {'xls', 'png'}  # 支持上传文件类型
-UPLOAD_FOLDER = '/Users/crossorbit/desktop'  # 上传文件目录
-PHOTO_FOLDER = '/Users/crossorbit/desktop'  # 照片目录
+UPLOAD_FOLDER = '/opt/transgo/upload'  # 上传文件目录
+PHOTO_FOLDER = '/opt/transgo/photo'  # 照片目录
 DB_URL = "sqlite:///data/transgo.db"
 
 
