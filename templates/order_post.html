@@ -2,12 +2,12 @@
 {% block main_content %}
 <br/>
 <div>
-    <div class="col-md-6"><h4>订单查询</h4></div>
-    <div class="col-md-3">
+    <div class="col-md-4"><h4>订单查询</h4></div>
+    <div class="col-md-5">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="单号"></input>
+            <input id="search_order_id" type="text" class="form-control" placeholder="单号"></input>
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button">搜索</button>
+                <button class="btn btn-default" onclick="searchOrder()" type="button">搜索</button>
             </span>
         </div>
 
@@ -58,4 +58,14 @@
         </nav>
     </div>
 </div>
+<script type="text/javascript" charset="utf-8">
+function searchOrder() {
+    order_id = $("#search_order_id").val();
+    console.log(order_id);
+    window.location.href = "/search_order/{{order_id}}";
+    //$.get("/search_order/{{order_id}}", function(result) {
+
+    //});
+}
+</script>
 {% endblock %}

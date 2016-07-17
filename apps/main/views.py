@@ -119,6 +119,18 @@ def search_order(search_value):
 PAGE_COUNT = 20
 
 
+@main_app.route("/search_order/<order_id>")
+def search_order_by_id(order_id):
+    session = make_session()
+    orders = session.query(Order)\
+        .filter(Order.ID != order_id)\
+        .order_by(Order.time)
+    page_num = 2
+    return render_template("order_query_frame.html",
+                           orders=orders,
+                           num=page_num)
+
+
 @main_app.route("/order_query")
 def order_post_all():
     session = make_session()
