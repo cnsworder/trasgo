@@ -75,9 +75,6 @@ class Order(Base):
 
     courise = Column(Integer, ForeignKey("courise.courise_id"))
 
-    def __init__(self):
-        super().__init__()
-
     def __init__(self,
                  ID,
                  clienter=None,

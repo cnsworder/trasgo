@@ -157,9 +157,11 @@ def post_order():
     session = make_session()
 
     try:
-        # order = session.query(Order).filter(Order.ID == order_id)[0]
-        order = Order(ID=order_id, courise=courise_id)
-        # order.courise = courise_id
+        order = session.query(Order).filter(Order.ID == order_id)[0]
+        # order = Order(order_id, courise_id)
+        # order.ID = order_id
+        # order. courise = courise_id
+        order.courise = courise_id
         session.merge(order)
         session.commit()
     except Exception as e:
