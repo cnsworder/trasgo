@@ -3,7 +3,6 @@
 
 import config
 import os
-import json
 from datetime import datetime
 
 from flask import render_template
@@ -11,6 +10,7 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask import session
+from flask import jsonify
 
 import xlrd
 
@@ -18,8 +18,6 @@ from apps.main import main_app
 from apps.data.transgodatabase import Order
 from apps.data.transgodatabase import make_session
 from apps import logging
-
-import config
 
 
 # 默认主页
@@ -53,18 +51,18 @@ def import_to_db(table):
                 continue
 
             order = Order(row[xls_index.ID],
-                        row[xls_index.clienter],
-                        row[xls_index.tick],
-                        row[xls_index.user],
-                        row[xls_index.addr],
-                        row[xls_index.tel],
-                        int(row[xls_index.count]),
-                        row[xls_index.express],
-                        datetime.strptime(row[xls_index.time],
+                          row[xls_index.clienter],
+                          row[xls_index.tick],
+                          row[xls_index.user],
+                          row[xls_index.addr],
+                          row[xls_index.tel],
+                          int(row[xls_index.count]),
+                          row[xls_index.express],
+                          datetime.strptime(row[xls_index.time],
                                             "%Y/%m/%d  %H:%M:%S"),
-                        row[xls_index.descript],
-                        row[xls_index.print_status],
-                        True if row[xls_index.cancel_status] else False)
+                          row[xls_index.descript],
+                          row[xls_index.print_status],
+                          True if row[xls_index.cancel_status] else False)
             session.add(order)
 
         session.commit()
@@ -96,7 +94,7 @@ def upload_file():
             file.save(file_path)
             # return resolve_xls(file_path)
             return redirect(url_for('main_app.xls_value', filename=filename))
-    return 'erro!'
+    return jsonify(restult="false")
 
 
 @main_app.route("/xls_value/<filename>")
@@ -107,7 +105,7 @@ def xls_value(filename):
 
 @main_app.route("/importdb", methods=["POST"])
 def import_db():
-    return "import"
+    return redirect(url_for("main_app.import_xls"))
 
 
 def search_order(search_value):
@@ -238,3 +236,37 @@ def order_query_by_condition(cond_type=0):
     return render_template("order_post_frame.html",
                            orders=orders,
                            num=page_num)
+
+
+@main_app.route("/change_status/<order_id>/<status>", methods=["GET"])
+def chenage_status(order_id, status):
+    session = make_session()
+
+    try:
+        order = session.query(Order).filter(Order.ID == order_id)[0]
+        # order = Order(order_id, courise_id)
+        # order.ID = order_id
+        # order. courise = courise_id
+        order.status = status
+        session.merge(order)
+        session.commit()
+    except Exception as e:
+        print(e.message)
+        session.rollback()
+        return jsonify(result="false")
+
+    return jsonify(restult="true")
+
+
+@main_app.route("/upphoto", methods=['POST'])
+def upload_photo():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = u"{0}".format(file.filename)
+            # filename = secure_filename(file_name)
+            file_path = os.path.join(config.PHOTO_FOLDER, filename)
+            file.save(file_path)
+            # return resolve_xls(file_path)
+            return jsonify(result="true")
+    return jsonify(result="false")
