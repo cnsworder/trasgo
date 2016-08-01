@@ -3,7 +3,38 @@
 <h3>导入仓储文件</h3>
 
 <form method="POST" action="/upfile" enctype="multipart/form-data" style="margin-top:100px">
-    <input type="file" name="file" style="margin-bottom:100px"></input>
+    <input type="file" name="file" id="file" style="margin-bottom:100px"></input>
+    <div id="file-log"></div>
     <input type="submit" value="导入" class="btn btn-block btn-lg btn-inverse"></input>
 </form>
+<script>
+    function isSupportFileAPI() {
+        if (window.File
+            && window.FileList
+            && window.FileReader
+            && window.Blob) {
+            console.log("true");
+            return true;
+
+        }
+        return false;
+    }
+
+    isSupportFileAPI();
+
+    var reader;
+    $("#file").change(function(evt) {
+        var file = this.files[0];
+        reader = new FileReader();
+        reader.onerror = function() {reader.abort();};
+        reader.onload = function(e) {
+            console.log(e);
+        };
+        reader.onprogress = function(e) {
+            console.log(e.loaded);
+        };
+        $("#file-log").html(file.type + file.size);
+        reader.readAsBinaryString(evt.target.files[0]);
+    });
+</script>
 {% endblock %}
