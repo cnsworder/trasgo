@@ -25,3 +25,8 @@ def author():
         return redirect(url_for("main_app.main"))
     else:
         return redirect(url_for("login"))
+
+
+@app.route("/help")
+def help():
+    return render_template("help.html")
