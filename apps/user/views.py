@@ -21,8 +21,9 @@ def insert_user():
     user_name = request.form["name"]
     user_id = request.form["user_id"]
     user_type = request.form["user_type"]
+    user_passwd = request.form["user_passwd"]
 
-    user = User(user_id, user_name, user_type)
+    user = User(user_id, user_name, user_type, user_passwd)
 
     try:
         session = make_session()

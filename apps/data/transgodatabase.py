@@ -23,11 +23,17 @@ class User(Base):
     user_id = Column(String(20),
                      primary_key=True)
     user_name = Column(String(20))
+    user_passwd = Column(String(20))
     user_type = Column(Integer, ForeignKey('user_type.type_id'))
 
-    def __init__(self, user_id, user_name, user_type):
+    def __init__(self,
+                 user_id,
+                 user_name,
+                 user_type,
+                 user_passwd):
         self.user_name = user_name
         self.user_type = user_type
+        self.user_passwd = user_passwd
         self.user_id = user_id
 
 
@@ -66,7 +72,7 @@ class Order(Base):
     count = Column(Integer)
     express = Column(String(10))
     time = Column(DateTime,
-            default=datetime.now)
+                  default=datetime.now)
     descript = Column(String(256))
     print_status = Column(String(5))
     cancel_status = Column(Boolean)
@@ -122,7 +128,7 @@ engine = create_engine(config.DB_URL)
 
 def init_database():
     Base.metadata.create_all(engine)
-    logging.info("Database inited!")
+logging.info("Database inited!")
 
 
 def make_session():
