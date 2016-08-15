@@ -20,15 +20,15 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'user'
 
-    user_id = Column(Integer,
-                     primary_key=True,
-                     autoincrement=True)
+    user_id = Column(String(20),
+                     primary_key=True)
     user_name = Column(String(20))
     user_type = Column(Integer, ForeignKey('user_type.type_id'))
 
-    # def __init__(self, user_name, user_type):
-    #     self.user_name = user_name
-    #     self.user_type = user_type
+    def __init__(self, user_id, user_name, user_type):
+        self.user_name = user_name
+        self.user_type = user_type
+        self.user_id = user_id
 
 
 class UserType(Base):
@@ -66,7 +66,7 @@ class Order(Base):
     count = Column(Integer)
     express = Column(String(10))
     time = Column(DateTime,
-                  default=datetime.now)
+            default=datetime.now)
     descript = Column(String(256))
     print_status = Column(String(5))
     cancel_status = Column(Boolean)
@@ -105,6 +105,7 @@ class Order(Base):
 
 class courise(Base):
     """ 快递员
+
     """
 
     __tablename__ = "courise"
@@ -112,8 +113,8 @@ class courise(Base):
     courise_id = Column(String(20), primary_key=True)
     courise_name = Column(String(10), nullable=False)
 
-# TODO: session
-# Session = sessionmaker()
+    # TODO: session
+    # Session = sessionmaker()
 # Session.configure(bind=engine)
 
 engine = create_engine(config.DB_URL)

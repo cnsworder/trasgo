@@ -1,0 +1,52 @@
+{% extends "main_frame.html" %}
+{% block main_content %}
+<div class="col-md-10">
+    <div>
+        <h4>添加用户</h4>
+    </div>
+    <form class="form-horizontal" id="insert-user" action="insert_user" method="post">
+        <div class="form-group">
+            <label for="name" class="col-md-2 form-label">姓名</label>
+            <div class="col-md-6">
+                <input class="form-control" name="name" id="name" type="text" value="" placeholder="姓名" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user-id" class="col-md-2 form-label">编号</label>
+            <div class="col-md-6">
+                <input class="form-control" name="user_id" id="user-id" type="text" value="" placeholder="编号" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user-type" class="col-md-2 form-label">类型</label>
+            <div class="col-md-6">
+                <select name="user_type" class="form-control">
+                    <option vlaue="1">管理员</option>
+                    <option vlaue="2">快递员</option>
+                    <option vlaue="3">客户</option>
+                    <option vlaue="4">录入员</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">添加</button>
+    </form>
+
+</div>
+<script>
+    $("#insert-user").on("submit",
+                         function(e) {
+                             e.preventDefault();
+                             $.post(this.action,
+                                    $(this).serialize(),
+                                    function(r) {
+                                        if (r) {
+                                            if (r["result"]) {
+                                                alert("添加成功！");
+                                            } else {
+                                                alert("添加失败！");
+                                            }
+                                        }
+                                    });
+                         });
+</script>
+{% endblock %}
