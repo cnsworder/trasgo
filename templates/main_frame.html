@@ -5,11 +5,11 @@
     </head>
     <body>
         {% include "left.html" %}
-        
+
         <div class="warp-content">
             {% block main_content %}
             <script type="text/javascript">
-             $("#main").addClass("active");
+                $("#main").addClass("active");
             </script>
             {% include "main_content.html" %}
             {% endblock %}
